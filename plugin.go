@@ -34,6 +34,7 @@ type (
 		Targets          []string
 		VarFiles         []string
 		TerraformDataDir string
+		Cleanup          bool
 	}
 
 	// Netrc is credentials for cloning
@@ -127,7 +128,10 @@ func (p Plugin) Exec() error {
 		}
 	}
 
-	commands = append(commands, deleteCache(terraformDataDir))
+	// If we don't want to cleanup .terraform at the end of execution
+	if !p.Config.Cleanup {
+		commands = append(commands, deleteCache(terraformDataDir))
+	}
 
 	for _, c := range commands {
 		if c.Dir == "" {

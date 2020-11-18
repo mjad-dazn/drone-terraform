@@ -114,6 +114,11 @@ func main() {
 			Usage:  "changes the location where Terraform keeps its per-working-directory data, such as the current remote backend configuration",
 			EnvVar: "PLUGIN_TF_DATA_DIR",
 		},
+		cli.BoolFlag{
+			Name:   "cleanup",
+			Usage:  "If cleanup = true, run final rm -rf .terraform else do not",
+			EnvVar: "PLUGIN_CLEANUP",
+		},
 	}
 
 	if err := app.Run(os.Args); err != nil {
@@ -163,6 +168,7 @@ func run(c *cli.Context) error {
 			Targets:          c.StringSlice("targets"),
 			VarFiles:         c.StringSlice("var_files"),
 			TerraformDataDir: c.String("tf_data_dir"),
+			Cleanup:          c.Bool("cleanup"),
 		},
 		Netrc: Netrc{
 			Login:    c.String("netrc.username"),
