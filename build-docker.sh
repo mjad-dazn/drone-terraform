@@ -12,7 +12,7 @@ fi
 major=$(echo $tag | awk -F. '{print $1}')
 minor=$(echo $tag | awk -F. '{print $2}')
 
-tf_ver="0.13.2"
+tf_ver="0.12.26"
 
 echo "Confirm building images for:"
 echo "  MAJOR: ${major}"
@@ -27,14 +27,14 @@ if [[ "$ans" != "Y" && "$ans" != "y" ]]; then
 fi
 
 set -x
-docker build -t jmccann/drone-terraform:latest --build-arg terraform_version=${tf_ver} .
+docker build -t mjadorg/drone-terraform:latest --build-arg terraform_version=${tf_ver} .
 
-docker tag jmccann/drone-terraform:latest jmccann/drone-terraform:${major}
-docker tag jmccann/drone-terraform:latest jmccann/drone-terraform:${major}.${minor}
-docker tag jmccann/drone-terraform:latest jmccann/drone-terraform:${major}.${minor}-${tf_ver}
+docker tag mjadorg/drone-terraform:latest mjadorg/drone-terraform:${major}
+docker tag mjadorg/drone-terraform:latest mjadorg/drone-terraform:${major}.${minor}
+docker tag mjadorg/drone-terraform:latest mjadorg/drone-terraform:${major}.${minor}-${tf_ver}
 
-docker push jmccann/drone-terraform:latest
-docker push jmccann/drone-terraform:${major}
-docker push jmccann/drone-terraform:${major}.${minor}
-docker push jmccann/drone-terraform:${major}.${minor}-${tf_ver}
+docker push mjadorg/drone-terraform:latest
+docker push mjadorg/drone-terraform:${major}
+docker push mjadorg/drone-terraform:${major}.${minor}
+docker push mjadorg/drone-terraform:${major}.${minor}-${tf_ver}
 set +x
