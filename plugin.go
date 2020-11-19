@@ -129,7 +129,7 @@ func (p Plugin) Exec() error {
 	}
 
 	// If we don't want to cleanup .terraform at the end of execution
-	if !p.Config.Cleanup {
+	if p.Config.Cleanup {
 		commands = append(commands, deleteCache(terraformDataDir))
 	}
 
